@@ -71,149 +71,141 @@ class AnimationSearchBar extends StatelessWidget {
       child: Consumer(builder: (context, ref, __) {
         final _isSearching = ref.watch(searchingProvider);
         final _searchNotifier = ref.watch(searchingProvider.notifier);
-        return Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: horizontalPadding ?? 0,
-              vertical: verticalPadding ?? 0),
-          child: SizedBox(
-            width: _searchBarWidth,
-            height: searchBarHeight ?? 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                /// back Button
-                _isBackButtonVisible
-                    ? AnimatedOpacity(
-                        opacity: _isSearching ? 0 : 1,
-                        duration: _duration,
-                        child: AnimatedContainer(
-                            curve: Curves.easeInOutCirc,
-                            width: _isSearching ? 0 : 35,
-                            height: _isSearching ? 0 : 35,
-                            duration: _duration,
-                            child: FittedBox(
-                                child: KBackButton(
-                                    icon: backIcon,
-                                    iconColor: backIconColor,
-                                    previousScreen: previousScreen))))
-                    : AnimatedContainer(
-                        curve: Curves.easeInOutCirc,
-                        width: _isSearching ? 0 : 35,
-                        height: _isSearching ? 0 : 35,
-                        duration: _duration),
-
-                /// text
-                AnimatedOpacity(
-                  opacity: _isSearching ? 0 : 1,
-                  duration: _duration,
-                  child: AnimatedContainer(
-                      curve: Curves.easeInOutCirc,
-                      width: _isSearching ? 0 : _searchBarWidth - 100,
+        return SizedBox(
+          width: _searchBarWidth,
+          height: searchBarHeight ?? 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              /// back Button
+              _isBackButtonVisible
+                  ? AnimatedOpacity(
+                      opacity: _isSearching ? 0 : 1,
                       duration: _duration,
-                      alignment: Alignment.centerLeft,
-                      child: centerTitle),
-                ),
+                      child: AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          duration: _duration,
+                          child: FittedBox(
+                              child: KBackButton(
+                                  icon: backIcon,
+                                  iconColor: backIconColor,
+                                  previousScreen: previousScreen))))
+                  : AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      width: _isSearching ? 0 : 35,
+                      height: _isSearching ? 0 : 35,
+                      duration: _duration),
 
-                /// close search
-                AnimatedOpacity(
-                  opacity: _isSearching ? 1 : 0,
-                  duration: _duration,
-                  child: AnimatedContainer(
+              /// text
+              AnimatedOpacity(
+                opacity: _isSearching ? 0 : 1,
+                duration: _duration,
+                child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    width: _isSearching ? 35 : 0,
-                    height: _isSearching ? 35 : 0,
+                    width: _isSearching ? 0 : _searchBarWidth - 100,
                     duration: _duration,
-                    child: FittedBox(
-                      child: KCustomButton(
-                        widget: Padding(
-                            padding: const EdgeInsets.all(3),
-                            child: Icon(Icons.close,
-                                color: closeIconColor ??
-                                    Colors.black.withOpacity(.7))),
-                        onPressed: () {
-                          _searchNotifier.state = false;
-                          searchTextEditingController.clear();
-                        },
-                      ),
+                    child: centerTitle),
+              ),
+
+              /// close search
+              AnimatedOpacity(
+                opacity: _isSearching ? 1 : 0,
+                duration: _duration,
+                child: AnimatedContainer(
+                  curve: Curves.easeInOutCirc,
+                  width: _isSearching ? 35 : 0,
+                  height: _isSearching ? 35 : 0,
+                  duration: _duration,
+                  child: FittedBox(
+                    child: KCustomButton(
+                      widget: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: Icon(Icons.close,
+                              color: closeIconColor ??
+                                  Colors.black.withOpacity(.7))),
+                      onPressed: () {
+                        _searchNotifier.state = false;
+                        searchTextEditingController.clear();
+                      },
                     ),
                   ),
                 ),
+              ),
 
-                /// input panel
-                AnimatedOpacity(
-                  opacity: _isSearching ? 1 : 0,
+              /// input panel
+              AnimatedOpacity(
+                opacity: _isSearching ? 1 : 0,
+                duration: _duration,
+                child: AnimatedContainer(
+                  curve: Curves.easeInOutCirc,
                   duration: _duration,
-                  child: AnimatedContainer(
-                    curve: Curves.easeInOutCirc,
-                    duration: _duration,
-                    width: _isSearching
-                        ? _searchBarWidth - 55 - (horizontalPadding ?? 0 * 2)
-                        : 0,
-                    height: _isSearching ? _searchFieldHeight : 20,
-                    margin: EdgeInsets.only(
-                        left: _isSearching ? 5 : 0,
-                        right: _isSearching ? 10 : 0),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    alignment: Alignment.center,
-                    decoration: searchFieldDecoration ??
-                        BoxDecoration(
-                            color: Colors.black.withOpacity(.05),
-                            border: Border.all(
-                                color: Colors.black.withOpacity(.2), width: .5),
-                            borderRadius: BorderRadius.circular(15)),
-                    child: TextField(
-                      controller: searchTextEditingController,
-                      cursorColor: cursorColor ?? Colors.lightBlue,
-                      onSubmitted: (value) => onSubmitted(),
-                      style: textStyle ??
+                  width: _isSearching
+                      ? _searchBarWidth - 55 - (horizontalPadding ?? 0 * 2)
+                      : 0,
+                  height: _isSearching ? _searchFieldHeight : 20,
+                  margin: EdgeInsets.only(
+                      left: _isSearching ? 5 : 0, right: _isSearching ? 10 : 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.center,
+                  decoration: searchFieldDecoration ??
+                      BoxDecoration(
+                          color: Colors.black.withOpacity(.05),
+                          border: Border.all(
+                              color: Colors.black.withOpacity(.2), width: .5),
+                          borderRadius: BorderRadius.circular(15)),
+                  child: TextField(
+                    controller: searchTextEditingController,
+                    cursorColor: cursorColor ?? Colors.lightBlue,
+                    onSubmitted: (value) => onSubmitted(),
+                    style: textStyle ??
+                        const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.w300),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.zero,
+                      hintText: hintText ?? 'Search here...',
+                      hintStyle: hintStyle ??
                           const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w300),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.zero,
-                        hintText: hintText ?? 'Search here...',
-                        hintStyle: hintStyle ??
-                            const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w300),
-                        disabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide.none),
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide.none),
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide.none),
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide.none),
-                      ),
-                      onChanged: onChanged,
+                      disabledBorder:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
+                      focusedBorder:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
+                      enabledBorder:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
+                      border:
+                          const OutlineInputBorder(borderSide: BorderSide.none),
                     ),
+                    onChanged: onChanged,
                   ),
                 ),
+              ),
 
-                ///  search button
-                AnimatedOpacity(
-                  opacity: _isSearching ? 0 : 1,
+              ///  search button
+              AnimatedOpacity(
+                opacity: _isSearching ? 0 : 1,
+                duration: _duration,
+                child: AnimatedContainer(
+                  curve: Curves.easeInOutCirc,
                   duration: _duration,
-                  child: AnimatedContainer(
-                    curve: Curves.easeInOutCirc,
-                    duration: _duration,
-                    width: _isSearching ? 0 : 35,
-                    height: _isSearching ? 0 : 35,
-                    child: FittedBox(
-                      child: KCustomButton(
-                          widget: Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Icon(Icons.search,
-                                  size: 35,
-                                  color: searchIconColor ??
-                                      Colors.black.withOpacity(.7))),
-                          onPressed: () => _searchNotifier.state = true),
-                    ),
+                  width: _isSearching ? 0 : 35,
+                  height: _isSearching ? 0 : 35,
+                  child: FittedBox(
+                    child: KCustomButton(
+                        widget: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Icon(Icons.search,
+                                size: 35,
+                                color: searchIconColor ??
+                                    Colors.black.withOpacity(.7))),
+                        onPressed: () => _searchNotifier.state = true),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         );
       }),
