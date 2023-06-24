@@ -80,7 +80,6 @@ class AnimationSearchBar extends StatelessWidget {
             height: searchBarHeight ?? 50,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
                 /// back Button
@@ -111,7 +110,6 @@ class AnimationSearchBar extends StatelessWidget {
                   child: AnimatedContainer(
                       curve: Curves.easeInOutCirc,
                       duration: _duration,
-                      alignment: Alignment.centerLeft,
                       child: centerTitle),
                 ),
 
