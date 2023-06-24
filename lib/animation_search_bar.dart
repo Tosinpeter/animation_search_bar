@@ -112,7 +112,7 @@ class AnimationSearchBar extends StatelessWidget {
                       curve: Curves.easeInOutCirc,
                       width: _isSearching ? 0 : _searchBarWidth - 100,
                       duration: _duration,
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: centerTitle),
                 ),
 
