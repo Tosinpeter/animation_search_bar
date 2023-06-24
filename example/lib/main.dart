@@ -40,7 +40,10 @@ class _HomeState extends State<Home> {
               alignment: Alignment.center,
               child: AnimationSearchBar(
                   backIconColor: Colors.black,
-                  centerTitle: 'App Title',
+                  centerTitle: const Text('App Title'),
+                  onSubmitted: () {
+                    print('object');
+                  },
                   onChanged: (text) {
                     countries = _countries
                         .where(

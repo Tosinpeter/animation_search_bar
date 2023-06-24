@@ -32,6 +32,7 @@ class AnimationSearchBar extends StatelessWidget {
     this.isBackButtonVisible,
     this.backIcon,
     this.duration,
+    required this.onSubmitted,
   }) : super(key: key);
 
   ///
@@ -45,8 +46,9 @@ class AnimationSearchBar extends StatelessWidget {
   final Color? closeIconColor;
   final Color? searchIconColor;
   final Color? cursorColor;
-  final String? centerTitle;
+  final Widget? centerTitle;
   final String? hintText;
+  final Function onSubmitted;
   final bool? isBackButtonVisible;
   final IconData? backIcon;
   final TextStyle? centerTitleStyle;
@@ -107,23 +109,11 @@ class AnimationSearchBar extends StatelessWidget {
                   opacity: _isSearching ? 0 : 1,
                   duration: _duration,
                   child: AnimatedContainer(
-                    curve: Curves.easeInOutCirc,
-                    width: _isSearching ? 0 : _searchBarWidth - 100,
-                    duration: _duration,
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      child: Text(
-                        centerTitle ?? 'Title',
-                        textAlign: TextAlign.center,
-                        style: centerTitleStyle ??
-                            const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                      ),
-                    ),
-                  ),
+                      curve: Curves.easeInOutCirc,
+                      width: _isSearching ? 0 : _searchBarWidth - 100,
+                      duration: _duration,
+                      alignment: Alignment.center,
+                      child: centerTitle),
                 ),
 
                 /// close search
@@ -176,6 +166,7 @@ class AnimationSearchBar extends StatelessWidget {
                     child: TextField(
                       controller: searchTextEditingController,
                       cursorColor: cursorColor ?? Colors.lightBlue,
+                      onSubmitted: (value) => onSubmitted(),
                       style: textStyle ??
                           const TextStyle(
                               color: Colors.black, fontWeight: FontWeight.w300),
